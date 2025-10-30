@@ -72,36 +72,37 @@ You must submit a package with the following file structure
 
 ```bash
 cost_mapping/
-├── config
-│   └── params.yaml #Your params go here
-├── part1_result.png # your part1 screenshot
 ├── cost_mapping
-│   ├── __init__.py
-│   ├── occupancy_pub.py # Node to publish occupancy grid
-│   └── utils.py    # node which contains cost_map function
+│   ├── config
+│   └── params.yaml #Your params go here
+│   ├── part1_result.png # your part1 screenshot
+│   ├── cost_mapping
+│   │   ├── __init__.py
+│   │   ├── occupancy_pub.py # Node to publish occupancy grid
+│   │   └── utils.py    # node which contains cost_map function
+│   ├── launch
+│   │   └── occupancy.launch.py # Should launch your node and occupancy grid in rviz
+│   ├── package.xml
+│   ├── resource
+│   │   └── cost_mapping
+│   ├── rviz
+│   │   └── config.rviz # rviz configuration
+│   ├── setup.cfg
+│   ├── setup.py # update for required installs
+│   └── test
+│       ├── test_copyright.py
+│       ├── test_flake8.py
+│       └── test_pep257.py
 ├── images
-│   ├── algo.png
-│   ├── costmap.png
-│   ├── image-1.png
-│   ├── image.png
-│   ├── occupancy.png
-│   ├── scene.png
-│   ├── top_view2.png
-│   └── top_view.png
-├── launch
-│   └── occupancy.launch.py # Should launch your node and occupancy grid in rviz
-├── package.xml
-├── README.md
-├── resource
-│   └── cost_mapping
-├── rviz
-│   └── config.rviz # rviz configuration
-├── setup.cfg
-├── setup.py    # update for required installs
-└── test
-    ├── test_copyright.py
-    ├── test_flake8.py
-    └── test_pep257.py
+│   ├── algo.png
+│   ├── costmap.png
+│   ├── image-1.png
+│   ├── image.png
+│   ├── occupancy.png
+│   ├── scene.png
+│   ├── top_view2.png
+│   └── top_view.png
+└── README.md
 
 ```
 
