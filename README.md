@@ -178,6 +178,12 @@ def cost_map(<your args>) -> numpy.ndarray:
 ```
 
 **When run on the dev_workspace.ply file, the output is as follows**
+**Top View**
+![](images/top_view.png)
+
+**Cost Map**
+![](images/top_view2.png)
+
 
 **Top View**
 ![](images/scene.png)
