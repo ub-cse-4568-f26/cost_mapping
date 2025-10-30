@@ -74,7 +74,7 @@ You must submit a package with the following file structure
 cost_mapping/
 ├── cost_mapping
 │   ├── config
-│   └── params.yaml #Your params go here
+│       └── params.yaml #Your params go here
 │   ├── part1_result.png # your part1 screenshot
 │   ├── cost_mapping
 │   │   ├── __init__.py
