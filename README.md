@@ -53,7 +53,7 @@ FAST-LIO2 is a LiDAR SLAM system that uses LiDAR and IMU data in a tightly-coupl
 
 Image shows point cloud map of Davis hall atrium generated using the Spot robot and a Ouster LiDAR using FAST-LIO2.
 
-You can start with setting up FAST-LIO2 in your ROS environment. The code and detailed instructions are provided [here](https://github.com/ub-cse-4568-f25/fastlio2)
+You can start with setting up FAST-LIO2 in your ROS2 environment. The code and detailed instructions are provided [here](https://github.com/ub-cse-4568-f25/fastlio2)
 
 **Note: Make sure to read the entire README and follow all the steps. You should NOT have to make any changes to the source code. **
 
@@ -162,7 +162,7 @@ Once you have your point cloud map and want to use it for robot navigation, you 
 5. The normalize function should normalize all the values in the cost list to be between 0-1
 6. Iterate through each point in tree, calculate its pixel coordinate and create a cost map from these pixels using the normalized cost as the intensity value
 
-Inside `cost_mapping.py` write your logic to compute the 2D cost map. You can reuse this code in the ROS portion of the assignment. **We will check the functionality and correctness of this code for Part 2-i.**
+Inside `utils.py` write your logic to compute the 2D cost map. You can reuse this code in the ROS portion of the assignment. **We will check the functionality and correctness of this code for Part 2-i.**
 
 ```python
 def cost_map(<your args>) -> numpy.ndarray:
@@ -192,7 +192,7 @@ def cost_map(<your args>) -> numpy.ndarray:
 
 After successfully generating a cost map, we can simplify it by thresholding the cost to generate a occupancy grid. Meaning, we will set a certain cost above which the terrain/region is not traversable for the robot and below which it is. The occupancy grid can then be used for graph-based path planning.
 
-You will write a ROS node `occupancy` which will take a static point cloud map (from FAST-LIO2), use your cost mapping algorithm to generate a cost map, threshold it and publish an occupancy grid (`nav_msgs/OccupancyGrid`)/
+You will write a ROS2 node `occupancy_pub` which will take a static point cloud map (from FAST-LIO2), use your cost mapping algorithm to generate a cost map, threshold it and publish an occupancy grid (`nav_msgs/OccupancyGrid`)/
 
 **Occupancy Grid**
 ![](images/occupancy.png)
@@ -200,8 +200,8 @@ You will write a ROS node `occupancy` which will take a static point cloud map (
 ### Suggested Plan of Attack
 
 1. Downsample the pointcloud with a voxel size of 0.01
-2. Implement the cost mapping algorithm in `cost_mapping.py` as a function you can call
-3. Write your ROS2 Node that imports `cost_mapping.py` and calls your `cost_map` function to generate cost map. You can use the sharedpath of the package and sys.path.append to import the `cost_mapping` module
+2. Implement the cost mapping algorithm in `utils.py` as a function you can call
+3. Write your ROS2 Node that imports `utils.py` and calls your `cost_map` function to generate cost map. You can use the sharedpath of the package and sys.path.append to import the `utils` module
 4. Threshold the cost map to generate an occupancy
 5. Publish occupancy grid
 6. Make sure to add the necessary launch, rviz, param configurations and the corresponding folders in the data files in setup.py and 
