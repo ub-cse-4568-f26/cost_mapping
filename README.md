@@ -60,7 +60,7 @@ You can start with setting up FAST-LIO2 in your ROS2 environment. The code and d
 
 ### The Datasets
 
-We provide datasets that you will use to generate point clouds using FAST-LIO2. The datasets can be downloaded here in the form of `rosbags2`. The ros2 bags contain various topics among which you'll find `/ouster/points` and `/ouster/imu` which are of type `sensor_msgs/Pointcloud2` and `sensor_msgs/Imu` respectively. The `ros2 bag` can be downloaded [here](https://buffalo.box.com/s/ye2azyb62p9eovxio685o6si725kk0cz)
+We provide datasets that you will use to generate point clouds using FAST-LIO2. The datasets can be downloaded here in the form of `rosbags2`. The ros2 bags contain various topics among which you'll find `/ouster/points` and `/ouster/imu` which are of type `sensor_msgs/Pointcloud2` and `sensor_msgs/Imu` respectively. The `ros2 bag` can be downloaded [here](https://buffalo.box.com/s/perj656561xl6pa7k8prjl7v8ogkk63s)
 
 Testing ply can be downloaded from [here](https://buffalo.box.com/s/oztatbku5zjyqgc1jh1cu9bx8u7e0hhg)
 
@@ -133,11 +133,12 @@ In this part, you will generate point cloud maps using FAST-LIO2 and the dataset
 
 ### Suggested Plan Of Attack
 
-1. Start by setting up FAST-LIO2. For this assignment, we will be using MIT-SPARK/spark-fast-lio and the [Colloseo dataset](https://buffalo.box.com/s/ye2azyb62p9eovxio685o6si725kk0cz). You should use the same launch procedure as [LIO on Colloseo](https://github.com/ub-cse-4568-f25/fastlio2?tab=readme-ov-file#%EF%B8%8F-lio-on-the-colosseum) but on the dataset provided to you.
-2. Run FAST-LIO2 and play the bag using `ros2 bag play <name>`.
-3. Visualize results in `rviz2` (FAST-LIO2 launch will start a `rviz2` window)
-4. On completion the point cloud map will be saved in `scene.pcd` in the folder where you launch FAST-LIO2
-5. Inspect the point cloud using [CloudCompare](https://www.danielgm.net/cc/) or PCL Tools
+1. Start by setting up FAST-LIO2. For this assignment, we will be using MIT-SPARK/spark-fast-lio and the [Colloseo dataset](https://buffalo.box.com/s/perj656561xl6pa7k8prjl7v8ogkk63s). You should use the same launch procedure as [LIO on Colloseo](https://github.com/ub-cse-4568-f25/fastlio2?tab=readme-ov-file#%EF%B8%8F-lio-on-the-colosseum) but on the dataset provided to you.
+2. Modify the contents of `mapping_vbr_colosseo.launch.yaml` to match the lidar and imu topic from the given bag. Change the frames accordingly. There is no TF published for lidar link -> imu link. So, you need to publish the transform. You can refer the `mapping_mit_campus.launch.yaml` on how to publish transforms.
+3. Run FAST-LIO2 and play the bag using `ros2 bag play <name>`.
+4. Visualize results in `rviz2` (FAST-LIO2 launch will start a `rviz2` window)
+5. On completion the point cloud map will be saved in `scene.pcd` in the folder where you launch FAST-LIO2
+6. Inspect the point cloud using [CloudCompare](https://www.danielgm.net/cc/) or PCL Tools
 
 Submit a screenshot called `part1_result.png` containing the CloudCompare scene for evaluation.
 
@@ -185,12 +186,18 @@ def cost_map(<your args>) -> numpy.ndarray:
 ![](images/top_view2.png)
 
 
+
+**Visualization on the Provided ROS2 Bag Data**
 **Top View**
-![](images/scene.png)
+![](images/pcd.png)
 
 
-**Cost Map**
+**Cost Map Before Threshold**
+![](images/before_thresh.png)
+
+**Cost Map After Threshold**
 ![](images/costmap.png)
+
 
 
 
@@ -205,7 +212,7 @@ You will write a ROS2 node `occupancy_pub` which will take a static point cloud 
 
 ### Suggested Plan of Attack
 
-1. Downsample the pointcloud with a voxel size of 0.01
+1. Downsample the pointcloud with any voxel size between 0.01 and 0.1 
 2. Implement the cost mapping algorithm in `utils.py` as a function you can call
 3. Write your ROS2 Node that imports `utils.py` and calls your `cost_map` function to generate cost map. You can use the sharedpath of the package and sys.path.append to import the `utils` module
 4. Threshold the cost map to generate an occupancy
