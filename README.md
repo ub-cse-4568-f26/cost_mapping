@@ -133,7 +133,7 @@ In this part, you will generate point cloud maps using FAST-LIO2 and the dataset
 
 ### Suggested Plan Of Attack
 
-1. Start by setting up FAST-LIO2. For this assignment, we will be using MIT-SPARK/spark-fast-lio and the [Colloseo dataset](https://buffalo.box.com/s/perj656561xl6pa7k8prjl7v8ogkk63s). You should use the same launch procedure as [LIO on Colloseo](https://github.com/ub-cse-4568-f25/fastlio2?tab=readme-ov-file#%EF%B8%8F-lio-on-the-colosseum) but on the dataset provided to you.
+1. Start by setting up FAST-LIO2. For this assignment, we will be using MIT-SPARK/spark-fast-lio and the [dataset](https://buffalo.box.com/s/perj656561xl6pa7k8prjl7v8ogkk63s). You should use the same launch procedure as [LIO on Colloseo](https://github.com/ub-cse-4568-f25/fastlio2?tab=readme-ov-file#%EF%B8%8F-lio-on-the-colosseum) but on the dataset provided to you.
 2. Modify the contents of `mapping_vbr_colosseo.launch.yaml` to match the lidar and imu topic from the given bag. Change the frames accordingly. There is no TF published for lidar link -> imu link. So, you need to publish the transform. You can refer the `mapping_mit_campus.launch.yaml` on how to publish transforms.
 3. Run FAST-LIO2 and play the bag using `ros2 bag play <name>`.
 4. Visualize results in `rviz2` (FAST-LIO2 launch will start a `rviz2` window)
