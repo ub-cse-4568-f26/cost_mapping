@@ -21,7 +21,7 @@ In this assignment, you will implement SLAM based mapping and cost-map generatio
 
 ### Objectives
 
-- Learn how to build an run large SLAM pipelines
+- Learn how to build and run large SLAM pipelines
 - Implement Cost-mapping and generate occupancy maps
 - Test the implementation on a dataset of LiDAR scans
   
@@ -156,7 +156,9 @@ Once you have your point cloud map and want to use it for robot navigation, you 
 
 ![](images/algo.png)
 
-1. Read the PCD using open3d (you can refer to the ICP activity). You can specify your path in`params.yaml` during testing using `point_cloud_path`, but should be mapped to `scene.pcd` during submission. The code should be such that it takes the path from `point_cloud_path` relative to the home(`~`) directory. i.e., if your home directory is `/home/user`, the path to `scene.pcd` is `/home/user/scene.pcd`.
+1. Read the PCD using open3d (you can refer to the ICP activity). You can specify your path in`params.yaml` during testing using `point_cloud_path`, but should be mapped to `scene.pcd` during submission. The code should dynamically infer the path from `point_cloud_path` as relative to the home(`~`) directory. i.e., if your home directory is `/home/cse4568` and the `point_cloud_path` is `scene.cd`, the code should dynamically infer the path as `/home/cse4568/scene.pcd`.
+**NOTE: Do not hardcode it! 10 Points will be deducted if the path is hardcoded.**
+
 2. Convert the open3d format to a numpy array (open3d has a function for this)
 3. T is tree data structure. This drastically speeds up your nearest neighbor searches. We recommend that you use the KDTree from Scipy
 4. The median function should calculate the median value in the passed list
@@ -203,7 +205,7 @@ def cost_map(<your args>) -> numpy.ndarray:
 
 ### Occupancy Grid
 
-After successfully generating a cost map, we can simplify it by thresholding the cost to generate a occupancy grid. Meaning, we will set a certain cost above which the terrain/region is not traversable for the robot and below which it is. The occupancy grid can then be used for graph-based path planning.
+After successfully generating a cost map, we can simplify it by thresholding the cost to generate an occupancy grid. Meaning, we can set a certain cost above which the terrain/region is not traversable for the robot and below which it is. The occupancy grid can then be used for graph-based path planning.
 
 You will write a ROS2 node `occupancy_pub` which will take a static point cloud map (from FAST-LIO2), use your cost mapping algorithm to generate a cost map, threshold it and publish an occupancy grid (`nav_msgs/OccupancyGrid`)/
 
